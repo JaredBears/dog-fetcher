@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import '../styles/App.css';
-import 'react-bootstrap-typeahead/css/Typeahead.css'; 
-import 'react-bootstrap-typeahead/css/Typeahead.bs5.css';
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';

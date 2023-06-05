@@ -172,6 +172,7 @@ const Search = (props) => {
                 setResultIds([data.match]);
                 setSavedIds([]);
                 setMatched(true);
+                setPages([]);
             } else {
                 throw new Error(response.status);
             }
@@ -201,20 +202,21 @@ const Search = (props) => {
                             setSearchBreeds(selected);
                         }}
                         selected = {searchBreeds}
+                        positionFixed={true}
                     />
-                    <label htmlFor="zipCodes">Zip Codes:</label>
+                    <br /><label htmlFor="zipCodes">Zip Code:</label>
                     <input type="text" id="zipCode" placeholder="Enter zip code" onChange={(event) => setZipCode(event.target.value)} />
-                    <label htmlFor="ageMin">Age Min:</label>
+                    <br /><label htmlFor="ageMin">Age Min:</label>
                     <input type="number" id="ageMin" placeholder="Enter age min" onChange={(event) => setAgeMin(event.target.value)} />
-                    <label htmlFor="ageMax">Age Max:</label>
+                    <br /><label htmlFor="ageMax">Age Max:</label>
                     <input type="number" id="ageMax" placeholder="Enter age max" onChange={(event) => setAgeMax(event.target.value)} />
-                    <label htmlFor="size">Size:</label>
+                    <br /><label htmlFor="size">Size:</label>
                     <select id="size" defaultValue={"25"} onChange={(event) => setSize(event.target.value)}>
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                     </select>
-                    <input type="submit" value="Search" />
+                    <br /><input type="submit" value="Search" />
                 </form>
             }
             {results.length > 0 && <Results results={results} savedIds={savedIds} setSavedIds={setSavedIds} matched={matched} findMatch={findMatch} /> }

@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Login from "./Login";
 import Search from "./Search";
-import Match from "./Match";
-import Results from "./Results";
 
 const Body = (props) => {
 

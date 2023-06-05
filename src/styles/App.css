@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-bottom: 20px;
 }
 
 .App-logo {
@@ -15,13 +16,24 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  padding: 10px;
 }
 
 .App-link {
@@ -37,6 +49,80 @@
   }
 }
 
-.rbt-menu dropdown-menu show {
-  opacity: 100;
+.dropdown-item {
+  padding: 0.5rem;
+  position: relative;
+  float: left;
+  width: 100%;
+  z-index: 1000;
+}
+
+div#breeds{
+  opacity: 100%;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  z-index: 999;
+}
+
+div.rbt-token {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+
+
+div.App-search {
+  margin: 0 auto;
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 45px;
+}
+
+div.dog {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+div.dog button.AddRemove {
+  position: relative;
+  float: left;
+  top: 50%;
+}
+
+div.dog-img{
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  position: relative;
+  float: left;
+}
+div.dog-img img {
+  width: 90px;
+  height: 90px;
+}
+
+div.dog-info {
+  float: left;
+}
+
+div.rbt {
+  border: 1px solid black;
+}
+
+input.rbt-input-main {
+  padding: 20px;
+  margin: 10px;
+}
+
+button.match {
+  position: fixed;
+  left: 5%;
 }

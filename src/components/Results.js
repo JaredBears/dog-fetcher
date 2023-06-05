@@ -21,7 +21,7 @@ const Results = (props) => {
     return (
         <div className="Results">
             {props.matched ? <p>Here is your matching companion!</p> : 
-            props.savedIds.length > 0 && <button onClick={props.findMatch}>Find Match</button>}
+            props.savedIds.length > 0 && <button class="match" onClick={props.findMatch}>Find Match</button>}
             {props.results.map((dog) => {
                 return <Dog key={dog.id} dog={dog} handleSave={handleSave} handleRemove={handleRemove} savedIds={props.savedIds} matched={props.matched} />
             })} 
