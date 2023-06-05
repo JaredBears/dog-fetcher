@@ -1,0 +1,22 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Login from "./Login";
+import Search from "./Search";
+import Match from "./Match";
+import Results from "./Results";
+
+const Body = (props) => {
+
+    const [user, setUser] = useState("");
+    const [error, setError] = useState("");
+
+    return (
+        <div className="App-body">
+            {(user ? (<Search user={user} setError={setError} API={props.API} />) : 
+                (<Login setUser={setUser} setError={setError} API={props.API} />))}
+            {error && <p className="error">{error}</p>}
+        </div>
+    );
+};
+
+export default Body;
