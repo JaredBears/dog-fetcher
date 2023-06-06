@@ -106,9 +106,13 @@ div.dog-img{
   position: relative;
   float: left;
 }
+
 div.dog-img img {
-  width: 75px;
-  height: 75px;
+  border-radius: 5px;
+}
+
+div.dog-img img:hover { 
+  cursor: pointer;
 }
 
 div.dog-info {

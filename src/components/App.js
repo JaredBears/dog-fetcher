@@ -11,7 +11,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header text="Fetch Rewards Coding Exercise" />
+      <Header text="Dog Fetcher" />
       <Body API={API} />
       <Footer text = "© 2023 by Jared Bears" />
     </div>

@@ -247,7 +247,7 @@ const Search = (props) => {
                         <option value="25">25</option>
                         <option value="50">50</option>
                     </select>
-                    <br /><label htmlFor="sort">Sort Order: </label>
+                    <br /><label htmlFor="sort">Breed Sort Order: </label>
                     <label htmlFor="sort">Ascending</label><input type="radio" id="sort" name="sort" value="asc" onChange={(event) => setSort(event.target.value)} />
                     <label htmlFor="sort">Descending</label><input type="radio" id="sort" name="sort" value="desc" onChange={(event) => setSort(event.target.value)} />
                     <br /><input type="submit" value="Search" />
