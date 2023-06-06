@@ -71,6 +71,18 @@ const Search = (props) => {
     const handleSearch = (event) => {
         event.preventDefault();
         setSavedIds([]);
+        if(ageMin < 0 || ageMax < 0) {
+            props.setError("Age must be a positive number");
+            return;
+        }
+        if(ageMin > ageMax) {
+            props.setError("Minimum age must be less than maximum age");
+            return;
+        }
+        if(zipCode.length > 0 && !zipCode.match(/^\d{5}$/)) {
+            props.setError("Zip code must be 5 digits");
+            return;
+        }
         const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (sort ? "&sort=breed:" + sort : "");
         fetchResults(props.API + "/dogs/search" + searchParams);
     };
