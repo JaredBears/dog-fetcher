@@ -22,7 +22,7 @@ const Search = (props) => {
     const [advanced , setAdvanced] = useState(false);
     const [matched, setMatched] = useState(false);
     const [results, setResults] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1); 
 
     useEffect(() => {
         if(resultIds.length > 0) {
@@ -68,6 +68,7 @@ const Search = (props) => {
     const handleSearch = (event) => {
         event.preventDefault();
         setSavedIds([]);
+        setCurrentPage(1);
         if(ageMin < 0 || ageMax < 0) {
             props.setError("Age must be a positive number");
             return;
@@ -88,24 +89,25 @@ const Search = (props) => {
         event.preventDefault();
         setSavedIds([]);
         setAdvanced(false);
+        setCurrentPage(1);
         fetchResults(props.API + "/dogs/search?sort=breed:asc");
     };
 
     const handleNext = () => {
         if(!nextPage) return;
-        setCurrentPage(currentPage + 1)
+        setCurrentPage(parseInt(currentPage) + 1)
         fetchResults(props.API + nextPage);
     };
 
     const handlePrev = () => {
         if(!prevPage) return;
-        setCurrentPage(currentPage - 1)
+        setCurrentPage(parseInt(currentPage) - 1)
         fetchResults(props.API + prevPage);
     };
 
     const fetchPage = (page) => {
-        if (page === currentPage) return;
-        setCurrentPage(page);
+        if (parseInt(page) === parseInt(currentPage)) return;
+        setCurrentPage(parseInt(page));
         const from = (page - 1) * size;
         const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=breed:" + sort : "");
         fetchResults(props.API + "/dogs/search" + searchParams);
@@ -131,7 +133,12 @@ const Search = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 setResultIds(data.resultIds);
-                setNextPage(data.next);
+                const from = parseInt(data.next.slice(data.next.search("from=") + 5));
+                if(from < data.total) {
+                    setNextPage(data.next);
+                } else {
+                    setNextPage(0);
+                }
                 setPrevPage(data.prev);
                 if(data.total / size > 1) {
                     setPages(Array.from(Array(Math.ceil(data.total / size)).keys()).map((page) => page + 1));
