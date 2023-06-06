@@ -37,10 +37,10 @@ const Login = (props) => {
         <div className="Login">
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name:</label>
-                <input type="text" id="name" placeholder="Enter your name" onChange={(event) => setName(event.target.value)} />
-                <label htmlFor="email">Email:</label>
-                <input type="text" id="email" placeholder="Enter your email" onChange={(event) => setEmail(event.target.value)} />
-                <input type="submit" value="Login" />
+                <input type="text" id="name" placeholder="Enter your name" autocomplete="on" onChange={(event) => setName(event.target.value)} />
+                <br /><label htmlFor="email">Email:</label>
+                <input type="text" id="email" placeholder="Enter your email" autocomplete="on" onChange={(event) => setEmail(event.target.value)} />
+                <br /><input type="submit" value="Login" />
             </form>
         </div>
     );

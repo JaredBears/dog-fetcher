@@ -74,7 +74,7 @@ div.rbt-token {
 
 div.App-search {
   margin: 0 auto;
-  width: 300px;
+  width: 450px;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 45px;
@@ -95,6 +95,8 @@ div.dog button.AddRemove {
   position: relative;
   float: left;
   top: 50%;
+  width: 60px;
+  margin-right: -10px;
 }
 
 div.dog-img{
@@ -105,12 +107,14 @@ div.dog-img{
   float: left;
 }
 div.dog-img img {
-  width: 90px;
-  height: 90px;
+  width: 75px;
+  height: 75px;
 }
 
 div.dog-info {
   float: left;
+  width: 250px;
+  height: 95px;
 }
 
 div.rbt {

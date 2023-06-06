@@ -14,7 +14,7 @@ const Search = (props) => {
     const [ageMax, setAgeMax] = useState(0);
     const [size, setSize] = useState(25);
     const [from, setFrom] = useState(0);
-    const [sort, setSort] = useState("");
+    const [sort, setSort] = useState("asc");
     const [resultIds, setResultIds] = useState([]);
     const [pages, setPages] = useState([]);
     const [nextPage, setNextPage] = useState(0);
@@ -23,6 +23,7 @@ const Search = (props) => {
     const [advanced , setAdvanced] = useState(false);
     const [matched, setMatched] = useState(false);
     const [results, setResults] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         if(resultIds.length > 0) {
@@ -65,14 +66,14 @@ const Search = (props) => {
     const handleSearch = (event) => {
         event.preventDefault();
         setSavedIds([]);
-        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=" + sort : "");
+        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=breed:" + sort : "");
         fetchResults(props.API + "/dogs/search" + searchParams);
     };
 
     const searchAll = (event) => {
         event.preventDefault();
         setSavedIds([]);
-        fetchResults(props.API + "/dogs/search");
+        fetchResults(props.API + "/dogs/search?sort=breed:asc");
     };
 
     const handleNext = () => {
@@ -85,7 +86,6 @@ const Search = (props) => {
     };
 
     const fetchPage = (page) => {
-        const currentPage = from / size + 1;
         if (page === currentPage) return;
         setFrom((page - 1) * size);
         const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=" + sort : "");
@@ -114,6 +114,7 @@ const Search = (props) => {
                 setResultIds(data.resultIds);
                 setNextPage(data.next);
                 setPrevPage(data.prev);
+                setCurrentPage(from / size + 1);
                 if(data.total / size > 1) {
                     setPages(Array.from(Array(Math.ceil(data.total / size)).keys()).map((page) => page + 1));
                 } else {
@@ -216,11 +217,14 @@ const Search = (props) => {
                         <option value="25">25</option>
                         <option value="50">50</option>
                     </select>
+                    <br /><label htmlFor="sort">Sort Order: </label>
+                    <label htmlFor="sort">Ascending</label><input type="radio" id="sort" name="sort" value="asc" onChange={(event) => setSort(event.target.value)} /> 
+                    <label htmlFor="sort">Descending</label><input type="radio" id="sort" name="sort" value="desc" onChange={(event) => setSort(event.target.value)} />
                     <br /><input type="submit" value="Search" />
                 </form>
             }
             {results.length > 0 && <Results results={results} savedIds={savedIds} setSavedIds={setSavedIds} matched={matched} findMatch={findMatch} /> }
-            {pages.length > 0 && <PageNav pages={pages} fetchPage={fetchPage} handleNext={handleNext} handlePrev={handlePrev} nextPage={nextPage} prevPage={prevPage} />}
+            {pages.length > 0 && <PageNav pages={pages} fetchPage={fetchPage} handleNext={handleNext} handlePrev={handlePrev} nextPage={nextPage} prevPage={prevPage} currentPage={currentPage} />}
         </div>
     );
 };

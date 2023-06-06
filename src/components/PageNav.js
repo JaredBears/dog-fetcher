@@ -5,7 +5,7 @@ const PageNav = (props) => {
     return (
         <div className="PageNav">
             <button onClick={props.handlePrev} disabled={disablePrev}>Prev</button>
-            <select onChange={(event) => props.fetchPage(event.target.value)}>
+            <select default={props.currentPage} onChange={(event) => props.fetchPage(event.target.value)}>
                 {props.pages.map((page) => {
                     return <option key={page} value={page}>{page}</option>
                 })}
