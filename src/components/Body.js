@@ -10,7 +10,7 @@ const Body = (props) => {
 
     return (
         <div className="App-body">
-            {(user ? (<Search user={user} setError={setError} API={props.API} />) : 
+            {(user ? (<Search user={user} setUser={setUser} setError={setError} API={props.API} />) : 
                 (<Login setUser={setUser} setError={setError} API={props.API} />))}
             {error && <p className="error">{error}</p>}
         </div>

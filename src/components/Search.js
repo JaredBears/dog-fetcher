@@ -13,7 +13,6 @@ const Search = (props) => {
     const [ageMin, setAgeMin] = useState(0);    
     const [ageMax, setAgeMax] = useState(0);
     const [size, setSize] = useState(25);
-    const [from, setFrom] = useState(0);
     const [sort, setSort] = useState("asc");
     const [resultIds, setResultIds] = useState([]);
     const [pages, setPages] = useState([]);
@@ -31,7 +30,6 @@ const Search = (props) => {
             console.log(resultIds)
             handleResults();
         } else {
-            setFrom(0);
             setNextPage(0);
             setPrevPage(0);
             setPages([]);
@@ -54,7 +52,14 @@ const Search = (props) => {
                 const data = await response.json();
                 setAllBreeds(data);
             } else {
-                throw new Error(response.status);
+                if(response.status === 401) {
+                    props.setError("You must be logged in to search");
+                    props.setUser(null);
+                    return;
+                }
+                else {
+                    throw new Error(response.status);
+                }
             }
         } catch (error) {
             props.setError("Error retrieving breeds");
@@ -66,29 +71,34 @@ const Search = (props) => {
     const handleSearch = (event) => {
         event.preventDefault();
         setSavedIds([]);
-        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=breed:" + sort : "");
+        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (sort ? "&sort=breed:" + sort : "");
         fetchResults(props.API + "/dogs/search" + searchParams);
     };
 
     const searchAll = (event) => {
         event.preventDefault();
         setSavedIds([]);
+        setAdvanced(false);
         fetchResults(props.API + "/dogs/search?sort=breed:asc");
     };
 
     const handleNext = () => {
+        if(!nextPage) return;
+        setCurrentPage(currentPage + 1)
         fetchResults(props.API + nextPage);
     };
 
     const handlePrev = () => {
         if(!prevPage) return;
+        setCurrentPage(currentPage - 1)
         fetchResults(props.API + prevPage);
     };
 
     const fetchPage = (page) => {
         if (page === currentPage) return;
-        setFrom((page - 1) * size);
-        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size !== 25 ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=" + sort : "");
+        setCurrentPage(page);
+        const from = (page - 1) * size;
+        const searchParams = "?" + (searchBreeds.length > 0 ? "breeds=" + searchBreeds : "") + (zipCode ? "&zipCodes=" + zipCode : "") + (ageMin ? "&ageMin=" + ageMin : "") + (ageMax ? "&ageMax=" + ageMax : "") + (size ? "&size=" + size : "") + (from ? "&from=" + from : "") + (sort ? "&sort=breed:" + sort : "");
         fetchResults(props.API + "/dogs/search" + searchParams);
     };
 
@@ -114,14 +124,20 @@ const Search = (props) => {
                 setResultIds(data.resultIds);
                 setNextPage(data.next);
                 setPrevPage(data.prev);
-                setCurrentPage(from / size + 1);
                 if(data.total / size > 1) {
                     setPages(Array.from(Array(Math.ceil(data.total / size)).keys()).map((page) => page + 1));
                 } else {
                     setPages([]);
                 }
             } else {
-                throw new Error(response.status);
+                if(response.status === 401) {
+                    props.setError("You must be logged in to search");
+                    props.setUser(null);
+                    return;
+                }
+                else {
+                    throw new Error(response.status);
+                }
             }
         } catch (error) {
             props.setError("Error retrieving results");
@@ -145,7 +161,14 @@ const Search = (props) => {
                 setResults(data)
                 console.log(data)
             } else {
-                throw new Error(response.status);
+                if(response.status === 401) {
+                    props.setError("You must be logged in to search");
+                    props.setUser(null);
+                    return;
+                }
+                else {
+                    throw new Error(response.status);
+                }
             }
         } catch (error) {
             props.setError("Error retrieving results");
@@ -175,7 +198,14 @@ const Search = (props) => {
                 setMatched(true);
                 setPages([]);
             } else {
-                throw new Error(response.status);
+                if(response.status === 401) {
+                    props.setError("You must be logged in to search");
+                    props.setUser(null);
+                    return;
+                }
+                else {
+                    throw new Error(response.status);
+                }
             }
         } catch (error) {
             props.setError("Error retrieving results");
@@ -218,13 +248,14 @@ const Search = (props) => {
                         <option value="50">50</option>
                     </select>
                     <br /><label htmlFor="sort">Sort Order: </label>
-                    <label htmlFor="sort">Ascending</label><input type="radio" id="sort" name="sort" value="asc" onChange={(event) => setSort(event.target.value)} /> 
+                    <label htmlFor="sort">Ascending</label><input type="radio" id="sort" name="sort" value="asc" onChange={(event) => setSort(event.target.value)} />
                     <label htmlFor="sort">Descending</label><input type="radio" id="sort" name="sort" value="desc" onChange={(event) => setSort(event.target.value)} />
                     <br /><input type="submit" value="Search" />
                 </form>
             }
             {results.length > 0 && <Results results={results} savedIds={savedIds} setSavedIds={setSavedIds} matched={matched} findMatch={findMatch} /> }
-            {pages.length > 0 && <PageNav pages={pages} fetchPage={fetchPage} handleNext={handleNext} handlePrev={handlePrev} nextPage={nextPage} prevPage={prevPage} currentPage={currentPage} />}
+            {pages.length > 1 && <p>Page {currentPage} / {pages.length}</p>}
+            {pages.length > 1 && <PageNav pages={pages} fetchPage={fetchPage} handleNext={handleNext} handlePrev={handlePrev} nextPage={nextPage} prevPage={prevPage} currentPage={currentPage} />}
         </div>
     );
 };
