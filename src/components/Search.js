@@ -26,8 +26,6 @@ const Search = (props) => {
 
     useEffect(() => {
         if(resultIds.length > 0) {
-            console.log("useEffect resultIds")
-            console.log(resultIds)
             handleResults();
         } else {
             setNextPage(0);
@@ -63,7 +61,6 @@ const Search = (props) => {
             }
         } catch (error) {
             props.setError("Error retrieving breeds");
-            console.log(error.message);
             return;
         }
     };
@@ -153,7 +150,6 @@ const Search = (props) => {
             }
         } catch (error) {
             props.setError("Error retrieving results");
-            console.log(error.message);
             return;
         }
     };
@@ -171,7 +167,6 @@ const Search = (props) => {
             if (response.ok) {
                 const data = await response.json();
                 setResults(data)
-                console.log(data)
             } else {
                 if(response.status === 401) {
                     props.setError("You must be logged in to search");
@@ -184,13 +179,11 @@ const Search = (props) => {
             }
         } catch (error) {
             props.setError("Error retrieving results");
-            console.log(error.message);
             return;
         }
     };
 
     const findMatch = async () => {
-        console.log(JSON.stringify(savedIds))
         try {
             const response = await fetch(props.API + "/dogs/match", {
                 method: "POST",
@@ -200,11 +193,8 @@ const Search = (props) => {
                     },
                 body: JSON.stringify(savedIds),
             });
-            console.log(savedIds)
-            console.log(response)
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 setResultIds([data.match]);
                 setSavedIds([]);
                 setMatched(true);
@@ -221,7 +211,6 @@ const Search = (props) => {
             }
         } catch (error) {
             props.setError("Error retrieving results");
-            console.log("error", error.message);
             return;
         }
     };

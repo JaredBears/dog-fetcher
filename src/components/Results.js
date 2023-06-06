@@ -8,14 +8,10 @@ const Results = (props) => {
 
     const handleSave = (id) => {
         props.setSavedIds([...props.savedIds, id]);
-        console.log("saved")
-        console.log(props.savedIds)
     };
 
     const handleRemove = (id) => {
         props.setSavedIds(props.savedIds.filter((savedId) => savedId !== id));
-        console.log("removed")
-        console.log(props.savedIds)
     };
 
     return (

@@ -29,7 +29,6 @@ const Login = (props) => {
         })
         .catch((error) => {
             props.setError("Login Error.  Could not authenticate");
-            console.log(error.message)
         });
     };
 
