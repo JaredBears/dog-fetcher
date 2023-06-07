@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { React, useState } from 'react'
 import styles from '../styles/image.module.css'
 
 const Image = ({ zoom, ...rest }) => {

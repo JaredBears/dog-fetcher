@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import Dog from './Dog';
 
 const Results = (props) => {
@@ -18,7 +19,7 @@ const Results = (props) => {
         <div className="Results">
             <p>Click on a Photo to see Full Size Image</p>
             {props.matched ? <p>Here is your matching companion!</p> : 
-            props.savedIds.length > 0 && <button class="match" onClick={props.findMatch}>Find Match</button>}
+            props.savedIds.length > 0 && <Button variant="contained" onClick={props.findMatch}>Find Match</Button>}
             {props.results.map((dog) => {
                 return <Dog key={dog.id} dog={dog} handleSave={handleSave} handleRemove={handleRemove} savedIds={props.savedIds} matched={props.matched} />
             })} 

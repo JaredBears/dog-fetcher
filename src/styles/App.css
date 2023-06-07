@@ -15,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #3B71CA;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #282c34;
+  background-color: #3B71CA;
   color: white;
   text-align: center;
   padding: 10px;
@@ -74,24 +74,14 @@ div.rbt-token {
 
 div.App-search {
   margin: 0 auto;
-  width: 450px;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 45px;
 }
 
-div.dog {
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-  margin: 0 auto;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid black;
-}
 
-div.dog button.AddRemove {
+
+.dog button.AddRemove {
   position: relative;
   float: left;
   top: 50%;
@@ -99,7 +89,7 @@ div.dog button.AddRemove {
   margin-right: -10px;
 }
 
-div.dog-img{
+.dog .dog-img{
   width: 100px;
   height: 100px;
   margin: 0;
@@ -107,30 +97,25 @@ div.dog-img{
   float: left;
 }
 
-div.dog-img img {
+.dog .dog-img img {
   border-radius: 5px;
 }
 
-div.dog-img img:hover { 
+.dog .dog-img img:hover { 
   cursor: pointer;
 }
 
-div.dog-info {
+.dog .dog-info {
   float: left;
   width: 250px;
   height: 95px;
 }
 
-div.rbt {
-  border: 1px solid black;
-}
+/* vertical and horizontal centering */
 
-input.rbt-input-main {
-  padding: 20px;
-  margin: 10px;
-}
-
-button.match {
-  position: fixed;
-  left: 5%;
+div.Login{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
