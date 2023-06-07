@@ -4,13 +4,12 @@ import Search from "./Search";
 
 const Body = (props) => {
 
-    const [user, setUser] = useState("");
     const [error, setError] = useState("");
 
     return (
         <div className="App-body">
-            {(user ? (<Search user={user} setUser={setUser} setError={setError} API={props.API} />) : 
-                (<Login setUser={setUser} setError={setError} API={props.API} />))}
+            {(props.user ? (<Search user={props.user} setError={setError} API={props.API} />) : 
+                (<Login setUser={props.setUser} setError={setError} API={props.API} />))}
             {error && <p className="error">{error}</p>}
         </div>
     );
