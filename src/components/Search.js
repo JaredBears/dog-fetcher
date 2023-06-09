@@ -19,7 +19,6 @@ const Search = (props) => {
     const [sort, setSort] = useState("asc");
     const [size, setSize] = useState(25);
     const [searchBreeds, setSearchBreeds] = useState([]);
-    const [prevZip, setPrevZip] = useState([]);
 
     const [formValues, setFormValues] = useState({
         zipCode: {
@@ -360,6 +359,7 @@ const Search = (props) => {
                         autoComplete="off"
                         onSubmit={(event) => {event.preventDefault(); handleSearch();}}
                         >
+                        <div className="searchBreedZip">
                         <Autocomplete
                             id="breeds"
                             multiple
@@ -371,9 +371,6 @@ const Search = (props) => {
                             )}
                             onChange={(event, value) => {
                                 setSearchBreeds(value);
-                            }}
-                            sx = {{
-                                
                             }}
                             selected = {searchBreeds}
                             />
@@ -388,16 +385,14 @@ const Search = (props) => {
                             placeholder="Enter zip code"
                             onChange={handleChange} 
                             size="small"/>
-                        <br />
+                        </div>
+                        <div className="searchAge">
                         <TextField 
                             variant="outlined" 
                             type="number" 
                             id="ageMin" 
                             name="ageMin"
                             label="Enter Minimum Age"
-                            sx = {{
-                                float: 'left',
-                            }}
                             value={formValues.ageMin.value}
                             error={formValues.ageMin.error}
                             helperText={formValues.ageMin.error && formValues.ageMin.errorMessage}
@@ -416,10 +411,10 @@ const Search = (props) => {
                             placeholder="Max Age"
                             onChange={handleChange} 
                             size="small"/>
-                        <br />
+                        </div>
+                        <div className="searchControls">
                         <FormControl
                             sx={{
-                                float: 'left',
                                 width: '50%',
                             }}>
                         <FormHelperText
@@ -467,6 +462,7 @@ const Search = (props) => {
                                     marginLeft: '25%',
                                 }}/>
                         </RadioGroup>
+                        </div>
                         <Button variant="contained" type="submit" onClick={handleSearch}>Search</Button>
                     </Box>
                 </div>

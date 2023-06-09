@@ -78,6 +78,7 @@ const Login = (props) => {
 
     return (
         <div className="Login">
+            <h2>Welcome, let's get you logged in!</h2>
             <Box 
                 component="form"
                 sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
@@ -86,7 +87,7 @@ const Login = (props) => {
                 <TextField 
                     variant="outlined" 
                     type="text" 
-                    label="name" 
+                    label="Name" 
                     name="name" 
                     id="name" 
                     placeholder="Enter your name" 
@@ -98,7 +99,7 @@ const Login = (props) => {
                 <TextField 
                     variant="outlined" 
                     type="text" 
-                    label="email" 
+                    label="Email" 
                     name="email" 
                     id="email" 
                     placeholder="Enter your email" 

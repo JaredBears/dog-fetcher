@@ -11,8 +11,9 @@ const App = () => {
   const [user, setUser] = useState("");
 
   const logout = () => {
-    fetch(`${API}/api/logout`, {
+    fetch(`${API}/auth/logout`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json"
       },
